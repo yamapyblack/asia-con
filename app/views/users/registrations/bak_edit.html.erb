@@ -1,0 +1,63 @@
+<h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phone_no %><br />
+    <%= f.telephone_field :phone_no %>
+  </div>
+
+  <div class="cropper">
+    <%= image_tag resource.icon_image, id: 'image', crossorigin: 'anonymous' %>
+    <%= f.file_field :icon_image %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+
+<% end %>
+
+<h3>Cancel my account</h3>
+
+<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+
+<%= link_to "Back", :back %>
+
+<style>
+img {
+    max-width: 100%; /* This rule is very important, please do not ignore this! */
+}
+</style>
+
+<script>
+console.log('cropper start !!!!!!!!!!!!!!!');
+const image = document.getElementById('image');
+console.log(image);
+
+const cropper = new Cropper(image, {
+  checkCrossOrigin: false,
+aspectRatio: 16 / 9,
+crop(event) {
+console.log(event.detail.x);
+console.log(event.detail.y);
+console.log(event.detail.width);
+console.log(event.detail.height);
+console.log(event.detail.rotate);
+console.log(event.detail.scaleX);
+console.log(event.detail.scaleY);
+},
+});
+</script>

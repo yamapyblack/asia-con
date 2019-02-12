@@ -1,0 +1,55 @@
+defaults: &defaults
+  materials:
+    stock:
+      '1':  'stock'
+      '2':  'import'
+      '3':  'none'
+      '0':  'contact'
+    unit:
+      '0':  'none'
+      '1':  'piece'
+      '2':  'meter'
+      '3':  'spuare_meter'
+      '4':  'liter'
+
+development:
+  <<: *defaults
+  facebook:
+    app_id: 'dummy'
+    app_secret: 'dummy'
+  aws:
+    aws_access_key_id: 'dummy'
+    aws_secret_access_key: "dummy"
+    aws_bucket_name: 'dummy'
+  puma:
+    daemonize: false
+  analytics:
+    tracker: "dummy"
+
+test:
+  <<: *defaults
+  facebook:
+    app_id: ''
+    app_secret: ''
+  aws:
+    aws_access_key_id: ''
+    aws_secret_access_key: ''
+    aws_bucket_name: ''
+  puma:
+    daemonize: false
+  analytics:
+    tracker: "dummy"
+
+production:
+  <<: *defaults
+  facebook:
+    app_id: ""
+    app_secret: "<%= ENV['FACEBOOK_APP_SECRET'] %>"
+  aws:
+    aws_access_key_id: ''
+    aws_secret_access_key: "<%= ENV['AWS_SECRET_ACCESS_KEY'] %>"
+    aws_bucket_name: ''
+  puma:
+    daemonize: true
+  analytics:
+    tracker: "<%= ENV['GA_TRACKER'] %>"

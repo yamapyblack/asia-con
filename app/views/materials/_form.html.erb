@@ -1,0 +1,155 @@
+<div class="material-form">
+
+<%= form_with(model: material, local: true, id: 'material_form') do |form| %>
+    <% if material.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(material.errors.count, "error") %> prohibited this material from being saved:</h2>
+
+        <ul>
+          <% material.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="material-images">
+      <% (1..5).each do |i| %>
+
+        <div class="m-image material-image_<%= i %>" id="m_image" >
+          <%= form.label "image_#{i}" do %>
+            <%= get_material_init_mage(material, params[:is_edit], i) %>
+          <% end %>
+          <!-- required only if new and image1 -->
+          <% is_main_required = ( !params[:is_edit] && i == 1 ) ? true : false %>
+          <%= form.file_field "image_#{i}", id: "material_image_#{i}", accept: '.jpg,.jpeg,.gif,.png,image/gif,image/jpeg,image/png', required: is_main_required %>
+        </div>
+
+      <% end %>
+    </div>
+
+    <div class="material-category-ids">
+      <%= form.label :category_ids, t('view.materials.label_category_ids') %>
+      <%= select_tag "material[category_ids]", options_for_select(@categories.map{|t| [t.name, t.category_id]}, selected: material.category_ids), multiple: true, id: :material_category_ids, required: true %>
+    </div>
+
+    <div class="material-title">
+      <%= form.text_field :title, id: :material_title, placeholder: t('view.materials.placeholder_title') , required: true %>
+    </div>
+
+    <div class="material-price">
+      <%= form.number_field :price, id: :material_price, placeholder: t('view.materials.placeholder_price') %>
+      <%= form.label :unit, t('view.materials.label_unit'), {class: 'label_unit'}  %>
+      <% default_unit = ( material.unit ) ? material.unit : 0 %>
+      <%= select_tag "material[unit]", options_for_select(Settings.materials['unit'].map{|key,val| [ t('view.materials.unit.' + val), key]}, selected: default_unit), id: :material_unit %>
+    </div>
+
+    <div class="material-stock">
+      <%= form.label :stock, t('view.materials.label_stock')  %>
+
+      <% default_key_str = ( material.stock ) ? material.stock.to_s : 0.to_s %>
+
+      <% Settings.materials['stock'].each do |key, val| %>
+        <div class="stock-radio">
+        <% if key == default_key_str %>
+          <%= radio_button_tag 'material[stock]', key ,{ checked: true } %>
+      <% else %>
+          <%= radio_button_tag 'material[stock]', key %>
+      <% end %>
+        <label for="material_stock_<%= key %>" class="radio label btn"><%= t('view.materials.stock.' + val) %></label>
+      </div>
+    <% end %>
+    </div>
+
+    <div class="material-description">
+      <%= form.text_area :description, id: :material_description, maxlength: 500, placeholder: t('view.materials.placeholder_description') %>
+    </div>
+
+    <div class="actions">
+      <% btn_name = params[:is_edit] ? t('view.materials.btn_name_update') : t('view.materials.btn_name_create')  %>
+      <%= form.submit(btn_name ,class: 'btn') %>
+    </div>
+
+  <% end %>
+  </div><!-- material-form -->
+
+  <script>
+$(function(){
+
+    /**
+     * on change event
+     */
+    $('#material_image_1').on('change', function(e){
+      console.log('material_image_1');
+      previewImage(1, e);
+      });
+    $('#material_image_2').on('change', function(e){
+      console.log('material_image_2');
+      previewImage(2, e);
+      });
+    $('#material_image_3').on('change', function(e){
+      console.log('material_image_3');
+      previewImage(3, e);
+      });
+    $('#material_image_4').on('change', function(e){
+      console.log('material_image_4');
+      previewImage(4, e);
+      });
+    $('#material_image_5').on('change', function(e){
+        console.log('material_image_5');
+        previewImage(5, e);
+        });
+
+    /**
+     * previewImage
+     */
+    previewImage = function(num, e){
+
+      // firstly clear canvas
+      $('.material-image_' + num).children('label').empty();
+
+      $('.material-image_' + num).children('label').append('<canvas id="preview_canvas_image_' + num + '" width="60px" height="60px" ></canvas>');
+
+      var file = e.target.files[0];
+      var reader = new FileReader();
+
+      // image only
+      if(file.type.indexOf("image") < 0){
+        return false;
+      }
+
+      // image upload
+      reader.onload = (function(file){
+          return function(e){
+
+          var img = new Image();
+          img.src = e.target.result;
+
+          img.onload = function() {
+          var img_width = img.width
+          var img_height = img.height
+          var img_wh_ratio =  img_width / img_height
+          var draw_width = 0;
+          var draw_height = 0;
+
+          if( img_wh_ratio > 1 ){
+          draw_width = 60;
+          draw_height = 60 / img_wh_ratio;
+          }else{
+          draw_width = 60 * img_wh_ratio;;
+          draw_height = 60
+          }
+
+          var cvs = document.getElementById('preview_canvas_image_' + num);
+          var ctx = cvs.getContext('2d');
+
+          ctx.drawImage(img, 0, 0, draw_width, draw_height);
+          }
+          };
+      })(file);
+      reader.readAsDataURL(file);
+    };
+
+});
+
+  </script>

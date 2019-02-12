@@ -1,0 +1,103 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  common:
+    site_name: 'ASIA CONSTRUCTION'
+    date_format: '%Y/%m/%d'
+
+  view:
+    application:
+      sub_title: 'Easy way to find Construction material in Cambodia'
+      country: 'for Combodia'
+      search_holder: 'Search...'
+      search_button: 'Go'
+      account: 'Account'
+      setting: 'setting'
+      logout: 'logout'
+      login: 'Login'
+      copyright: 'Copyright © Asia Construction All Rights Reserved.'
+      news: 'Asia Construction will launch at Feb 1st in 2019!!（This is Beta version）'
+
+    sidebar:
+      category_all: 'ALL'
+
+    materials:
+      image_alt: 'Card image cap'
+      over: '…'
+      mail_subject: 'Contact by Asia Construction'
+      facebook_share_button: ' share'
+      image_datail_alt: 'detail image cap'
+      posted_at: 'Posted at '
+      please_contact: 'Please Contact'
+      please_share: 'Please Share'
+      back: '<<Back'
+      stock:
+        stock: 'Stock'
+        import: 'Import'
+        none: 'No stock'
+        contact: 'Contact us'
+      unit:
+        none: ''
+        piece: 'Piece'
+        meter: 'Meter'
+        spuare_meter: 'Spuare Meter'
+        liter: 'Liter'
+      btn_name_create: 'Create'
+      btn_name_update: 'Update'
+      label_category_ids: 'Categories'
+      label_title: 'Title'
+      label_main_image: |
+        Main image
+        (required)
+      label_sub_images: |
+        Sub images
+        (not required)
+      label_remove_sub_images: 'Remove sub images'
+      label_price: 'Price'
+      label_unit: 'per'
+      label_stock: 'Stock'
+      label_description: 'Description'
+      placeholder_title: 'Title(required)'
+      placeholder_price: 'Price'
+      placeholder_description: 'Description'
+      detail_stock: 'Stock : '
+      detail_unit: ' per '
+
+    users:
+      sign_in_with: 'Sign in with '
+      back: '<<Back'
+      cancel_title: 'Cancel my account'
+      cancel_description: 'Unhappy?'
+      cancel_button: 'Cancel my account'
+      call_button: ' call'
+      mail_button: ' mail'
+      

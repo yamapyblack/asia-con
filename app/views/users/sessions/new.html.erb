@@ -1,0 +1,46 @@
+<div class="user-session">
+
+  <h2>Log in</h2>
+  <p id="notice"><%= notice %></p>
+
+<% if @email_login %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+
+    <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password, autocomplete: "off" %>
+    </div>
+
+    <% if devise_mapping.rememberable? -%>
+      <div class="field">
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me %>
+      </div>
+    <% end %>
+
+    <div class="actions">
+    <%= f.submit "Log in" %>
+    </div>
+
+    <%= render "users/shared/links" %>
+  <% end %>
+<% end %><!-- email_login end -->
+
+
+  <div class="login">
+  <% resource_class.omniauth_providers.each do |provider| %>
+    <% if provider['facebook'] == 'facebook' %>
+      <%= link_to(button_tag(t('view.users.sign_in_with') + OmniAuth::Utils.camelize(provider), class: "btn facebook-btn") ,omniauth_authorize_path(resource_name, provider)) %>
+    <% else %>
+      <%= link_to t('view.users.sign_in_with') + OmniAuth::Utils.camelize(provider), omniauth_authorize_path(resource_name, provider) %><br />
+    <% end %>
+  <% end %>
+  </div>
+
+</div>

@@ -1,0 +1,19 @@
+{
+  "vars": {},
+  "css": [
+    "grid.less",
+    "forms.less",
+    "buttons.less",
+    "navs.less",
+    "navbar.less",
+    "pager.less",
+    "thumbnails.less",
+    "alerts.less",
+    "close.less",
+    "dropdowns.less",
+    "modals.less",
+    "carousel.less"
+  ],
+  "js": [],
+  "customizerUrl": "<none>"
+}

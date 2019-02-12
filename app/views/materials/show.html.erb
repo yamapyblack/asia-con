@@ -1,0 +1,125 @@
+<div class="container">
+  <div class="row">
+
+    <article class="col-md-12">
+      <header class="detail-header">
+        <div class="d-flex align-items-center">
+          <%= link_to(user_path(@material.user.id), class: 'detail-user-link') do %>
+            <%= image_tag @material.user.icon_image.to_s, alt: t('view.materials.image_datail_alt'), class: 'detail-icon' %>
+            <span class="user-name" ><%= @material.user.name %></span>
+          <% end %>
+        </div>
+      </header>
+
+      <section class="detail-images">
+        <!-- image_1 is necessary -->
+        <div class="detail-image_1">
+          <%= image_tag @material.image_1.to_s, alt: 'image_1', class: 'detail-img-top' %>
+        </div>
+
+        <% if @material.image_2.present? %>
+          <div class="detail-image_2">
+            <%= image_tag @material.image_2.to_s, alt: 'image_2', class: 'detail-img-top' %>
+          </div>
+        <% end %>
+        <% if @material.image_3.present? %>
+          <div class="detail-image_3">
+            <%= image_tag @material.image_3.to_s, alt: 'image_3', class: 'detail-img-top' %>
+          </div>
+        <% end %>
+        <% if @material.image_4.present? %>
+          <div class="detail-image_4">
+            <%= image_tag @material.image_4.to_s, alt: 'image_4', class: 'detail-img-top' %>
+          </div>
+        <% end %>
+        <% if @material.image_5.present? %>
+          <div class="detail-image_5">
+            <%= image_tag @material.image_5.to_s, alt: 'image_5', class: 'detail-img-top' %>
+          </div>
+        <% end %>
+      </section>
+
+      <section>
+        <div class="detail-date">
+          <%= t('view.materials.posted_at')%><%= @material.created_at.strftime(t('common.date_format')) %>
+        </div>
+
+        <div class="detail-category">
+          <%= Category.category_name(@material.category_ids) %>
+        </div>
+      </section>
+
+      <h2 class="detail-title">
+        <%= @material.title %>
+      </h2>
+
+      <section>
+        <div class="detail-price">
+          <span>
+          <%= @material.price %>
+          </span>
+          <span>
+          <%= t('view.materials.detail_unit') unless @material.unit == 0 %>
+          <% unit_key = Settings.materials['unit'][@material.unit.to_s] %>
+          <%= t('view.materials.unit.' + unit_key) %>
+          </span>
+        </div>
+
+        <div class="detail-body">
+          <div class="detail-text">
+          <%= simple_format(h(render_with_hashtags(@material.description))) %>
+          </div>
+        </div>
+
+        <div class="detail-stock">
+          <%= t('view.materials.detail_stock') %>
+          <% stock_key = Settings.materials['stock'][@material.stock.to_s] %>
+          <%= t('view.materials.stock.' + stock_key) %>
+        </div>
+      </section>
+
+      <footer class="detail-footer">
+
+        <div class="contact">
+          <div class="btn-group">
+            <%= link_to(button_tag(content_tag(:i, t('view.users.call_button'), class: 'fa fa-phone'), class: "btn") ,'tel:' + @material.user.phone_no) if @material.user.phone_no.present? %>
+            <%= mail_to(@material.user.email, button_tag(content_tag(:i, t('view.users.mail_button'), class: 'fa fa-envelope'), class: "btn") ,subject: 'question') if @material.user.email.present? %>
+          </div>
+        </div>
+
+        <div class="social">
+          <%= link_to(button_tag(content_tag(:i, t('view.materials.facebook_share_button'), class: 'fa fa-facebook'), class: "btn facebook-btn") ,"https://www.facebook.com/sharer/sharer.php?u=" + url_for(only_path: false)) %>
+        </div>
+      </footer>
+
+    </article>
+  </div><!-- row -->
+  <div class="back">
+    <%= link_to t('view.materials.back'), materials_path %>
+  </div>
+</div><!-- container -->
+
+
+<% if current_user.present? && current_user.id == @material.user.id %>
+  <%= link_to(material_path(@material), method: 'delete', data: { :confirm => 'You cannnot recover this post. OK?'} ) do %>
+    <%= button_tag(content_tag(:i, '', class: 'fa fa-trash') , class: "circle-btn delete-btn" ) %>
+  <% end %>
+
+  <%= link_to(edit_material_path(@material)) do %>
+    <%= button_tag(content_tag(:i, '', class: 'fa fa-pencil') , class: "circle-btn edit-btn" ) %>
+  <% end %>
+<% end %>
+
+<!-- set ogp -->
+<% set_meta_tags "og:description": @material.description %>
+
+
+<script>
+$(document).ready(function(){
+    $('.detail-images').slick({
+      autoplay: true,
+      dots: true,
+    });
+});
+</script>
+

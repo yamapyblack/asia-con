@@ -1,0 +1,7 @@
+  <h1>Editing Your Post</h1>
+
+  <%= render 'form', material: @material , params: { is_edit: true } %>
+
+  <div class="back">
+    <%= link_to t('view.materials.back'), @material %>
+  </div>

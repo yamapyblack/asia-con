@@ -1,0 +1,25 @@
+<div class="user-show">
+  <div class="user-show-name" >
+    <h2><%= @user.name %></h2>
+  </div>
+
+  <div class="user-show-image" >
+    <%= image_tag @user.icon_image.to_s, alt: t('view.users.icon_image'), class: 'icon-image' %>
+  </div>
+
+  <div class="user-show-phone_no" >
+    <%= @user.phone_no %>
+  </div>
+  <div class="user-show-phone_no-btn" >
+    <%= link_to(button_tag(content_tag(:i, t('view.users.call_button'), class: 'fa fa-phone'), class: "btn contact-btn") ,"tel:" + @user.phone_no) if @user.phone_no.present? %>
+  </div>
+
+  <div class="user-show-email" >
+    <%= @user.email %>
+  </div>
+  <div class="user-show-email-btn" >
+    <%= mail_to(@user.email, button_tag(content_tag(:i, t('view.users.mail_button'), class: 'fa fa-envelope'), class: "btn contact-btn") ,subject: t('view.materials.mail_subject'))  if @user.email.present? %>
+  </div>
+</div>
+
+<%= render 'materials/all', materials: @materials %>

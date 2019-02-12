@@ -1,0 +1,50 @@
+<%= form_with(model: company, local: true) do |form| %>
+  <% if company.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(company.errors.count, "error") %> prohibited this company from being saved:</h2>
+
+      <ul>
+      <% company.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :icon_image %>
+    <%= form.text_field :icon_image, id: :company_icon_image %>
+  </div>
+  <div class="field">
+    <%= form.label :company_name %>
+    <%= form.text_field :company_name, id: :company_company_name %>
+  </div>
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_area :address, id: :material_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone_no %>
+    <%= form.text_field :phone_no, id: :company_phone_no %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mail_address %>
+    <%= form.text_field :mail_address, id: :company_mail_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :person %>
+    <%= form.text_field :person, id: :company_person %>
+  </div>
+
+  <div class="field">
+    <%= form.label :url %>
+    <%= form.text_field :url, id: :company_url %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

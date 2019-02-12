@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Asia Construction</title>
+    <%= csrf_meta_tags %>
+
+    <%= display_meta_tags(default_meta_tags) %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <!-- Google Analytics -->
+    <%= analytics_init %>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="header-main">
+
+        <div class="header-title">
+          <%= link_to(root_path) do %>
+            <h1>
+              <%= image_tag('asiacon_logo.png', alt: t('common.site_name'), class: '') %>
+            </h1>
+          <% end %>
+          <div class="header-sub-title">
+            <%= t('view.application.sub_title') %>
+            <%= image_tag('flag_of_cambodia.png', alt: t('view.application.country'), class: 'country-image') %>
+          </div>
+        </div>
+
+        <div class="header-search">
+          <%= search_form_for @q do |f| %>
+            <%= f.search_field :description_cont_any, class: "form-control", placeholder: t('view.application.search_holder') %>
+            <%= button_tag type: 'submit', class: 'btn search-btn' do %>
+              <i class="fa fa-search"></i>
+            <% end %>
+          <% end %>
+        </div>
+
+        <!-- mobile -->
+        <div id="header-menu">
+          <div class="btn menu-mobile-btn">
+            <span class="menu-mobile-icon"><i class="fa fa-bars"></i></span>
+          </div>
+        </div>
+
+        <div class="header-login">
+          <% if current_user.present? %>
+
+            <div id="dropdown">
+
+              <!-- pc -->
+              <div class="account-pc-text btn"><%= t('view.application.account') %></div>
+
+              <!-- mobile -->
+              <div class="btn account-mobile-btn">
+                <span class="account-mobile-icon"><i class="fa fa-user"></i></span>
+              </div>
+            </div>
+
+            <ul class="dropdown-child">
+              <li>
+              <div class="dropdown-item"><%= current_user.name %></div>
+              </li>
+              <li>
+              <%= link_to t('view.application.setting'), edit_user_registration_path(current_user), class: "dropdown-item" %>
+              </li>
+              <li>
+              <%= link_to t('view.application.logout'), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+              </li>
+            </ul>
+
+          <% else %>
+              <%= link_to(new_user_session_path) do %>
+                <%= button_tag( class: "btn login-btn") do %>
+                  <span class="login-text"><%= t('view.application.login') %></span><span class="login-icon"><i class="fa fa-user"></i></span>
+                <% end %>
+              <% end %>
+          <% end %>
+
+          </div>
+        </div>
+
+    </header>
+    <div class="newsbar">
+      <%= t('view.application.news') %>
+    </div>
+
+    <!-- sidebar -->
+    <div id="background_sidebar">
+    </div>
+
+    <main>
+      <div class="wrapper">
+        <aside class="sidebar">
+          <%= render 'layouts/sidebar', categories: @categories %>
+        </aside>
+        <div class="contents">
+          <%= yield %>
+        </div><!-- contents -->
+      </div><!-- wrapper -->
+    </main>
+
+    <footer class="footer">
+      <div class="footer-main"><%= t('view.application.copyright') %></div>
+    </footer>
+
+    <script>
+    /*
+     * DropdownMenu
+     */
+    $(function(){
+        $('#dropdown').on('click', function(){
+          $('.dropdown-child').toggle(200);
+        });
+    });
+
+/*
+ * SideMenu
+ */
+$(function(){
+    $('#header-menu,#background_sidebar').on('click', function(){
+      $('#background_sidebar').toggle();
+      $('.sidebar').animate({'width' : 'toggle' }, 'fast');  
+      
+    });
+});
+
+    </script>
+  </body>
+
+</html>

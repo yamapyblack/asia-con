@@ -1,0 +1,97 @@
+/******************************************************************
+system common
+******************************************************************/
+.circle-btn{
+  font-size: 1.8em;
+}
+/******************************************************************
+application.html.erb
+ ******************************************************************/
+.header{
+  .header-main {
+
+    .header-title{
+      text-align: center;
+      h1 {
+        img{
+          width: 60%;
+        }
+      }
+      .header-sub-title{
+        font-size: 1.2em;
+      }
+    }
+
+    .header-search{
+      margin-top: 1.6em;
+
+      .form-control{
+      }
+    }
+    #header-menu{
+      display: none;
+    }
+
+    .header-login{
+      position: static;
+      margin-top: 1.6em;
+
+      .account-pc-text{
+        display: inline;
+      }
+      .account-mobile-btn{
+        display: none;
+      }
+      .dropdown-child{
+        position: absolute;
+      }
+
+      .login-btn{
+        .login-text{
+          display: inline;
+        }
+        .login-icon{
+          display: none;
+        }
+      }
+    }
+  }/* header-main */
+}
+
+.sidebar{
+  display: inline-block;
+  vertical-align: top;
+  position: static;
+  width: 16%;
+}
+.contents{
+  display: inline-block;
+  width: 83%;
+}
+
+/******************************************************************
+layout/_sidebar.html.erb
+ ******************************************************************/
+.sidebar-main{
+  margin: 0;
+}
+
+/******************************************************************
+matarials/index.erb
+ ******************************************************************/
+.add-btn{
+  bottom: 1.4em;
+  right: 1.4em;
+}
+/******************************************************************
+matarials/_all.erb
+******************************************************************/
+/******************************************************************
+show.erb
+*******************************************************************/
+.delete-btn{
+  bottom: 4.8em;
+}
+/******************************************************************
+matarials/_form.erb
+******************************************************************/

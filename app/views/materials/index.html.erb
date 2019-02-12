@@ -1,0 +1,6 @@
+<%= render 'all', materials: @materials %>
+
+<%= link_to(new_material_path) do %>
+  <%= button_tag(content_tag(:i, '', class: 'fa fa-plus') , class: "circle-btn add-btn" ) %>
+<% end %>
+

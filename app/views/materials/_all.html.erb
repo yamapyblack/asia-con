@@ -1,0 +1,37 @@
+<div class="container">
+      <div class="row">
+        <% materials.each do |material| %>
+          <div class="card-grid col-md-6 col-lg-4">
+
+            <article class="card mb-4 box-shadow">
+
+              <%= link_to(material_path(material), class: 'card-link') do %>
+                <section class="card-img">
+                  <%= content_tag(:img, '', src: material.image_1.to_s, alt: t('view.materials.image_alt'), class: 'card-img-top') %>
+                </section>
+              <% end %>
+
+              <section class="card-user">
+                <%= link_to(user_path(material.user.id), class: 'card-user-link') do %>
+                  <%= image_tag material.user.icon_image.to_s, alt: t('view.materials.image_alt'), class: 'card-icon' %>
+                  <span class="user-name" ><%= material.user.name %></span>
+                <% end %>
+              </section>
+
+              <section class="card-category">
+                <%= Category.category_name(material.category_ids) %>
+              </section>
+
+              <h2 class="card-title">
+                <%= material.title %>
+              </h2>
+
+            </article>
+          </div>
+        <% end %>
+
+        <%= paginate materials %>
+      </div><!-- row -->
+
+    </div><!-- container -->
+

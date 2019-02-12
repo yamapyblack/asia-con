@@ -1,0 +1,604 @@
+/*
+ *This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+
+/******************************************************************
+system common
+******************************************************************/
+/* color */
+$maincolor: #f57c00;
+$darkmaincolor: darken($maincolor, 15%);
+$subcolor: #1976d2;
+
+$gray: #dfdfdf;
+$darkgray: darken($gray, 50%);
+
+$facebookcolor: #3b5998;
+$facebookdarkcolor: darken($facebookcolor, 15%);
+$linkcolor: #3F51B5;
+$darklinkcolor: darken($linkcolor, 15%);
+
+// text
+$text-title-gray: #7B7B7B;
+$text-black: #323944;
+$text-meta-gray: #9fa6b4;
+
+/* link */
+a{
+  color: $linkcolor;
+  text-decoration: none;
+  &:hover{
+    color: $darklinkcolor;
+    text-decoration: none;
+  }
+}
+
+.back{
+  margin-top: 1em;
+}
+
+.img-display-none{
+  display: none;
+}
+
+/* button */
+.btn{
+  background-color: $maincolor;
+  color: $white;
+}
+
+.circle-btn{
+  color: $white;
+  background-color: $subcolor;
+  border: none;
+  padding: 0.4em 0.73em;
+  border-radius: 2em;
+  font-size: 1.4em;
+}
+
+.facebook-btn{
+  background-color: $facebookcolor;
+  &:hover{
+    background-color: $facebookdarkcolor;
+  }
+}
+
+/* radio button */
+input[type=radio] {
+  display: none; 
+}
+input[type="radio"] + label {
+  background: $darkgray;
+}
+input[type="radio"]:checked + label {
+  background: $maincolor;
+}
+
+/******************************************************************
+layout/application.html.erb
+ ******************************************************************/
+body{
+  margin: 0;
+  padding: 0;
+}
+
+.header{
+  background-color: $maincolor;
+
+  .header-main {
+    margin: 0 auto;
+    padding-top: 0.5em;
+
+    .header-title{
+      text-align: center;
+
+      h1 {
+        margin: 0;
+
+        img{
+          width: 5em;
+        }
+      }
+
+      .header-sub-title{
+        font-size: 0.9em;
+        margin: 0.4em 0 0.4em;
+        font-weight: normal;
+        color: $white;
+        .country-image{
+          height: 1em;
+        }
+      }
+    }
+
+    .header-search{
+      
+      form{
+        padding: 6px;
+
+        .form-control{
+          float: left;
+          margin: 0 10px;
+          width: 70%;
+        }
+
+        .search-btn{
+          background-color: $gray;
+          color: #495057;
+        }
+      }
+    }
+
+    #header-menu{
+      position: absolute;
+      top: 3px;
+      .menu-mobile-icon{
+        font-size: 1.4em;
+      }
+    }
+
+    .header-login{
+      position: absolute;
+      right: 0;
+      top: 2px;
+      text-align: right;
+
+      .account-pc-text{
+        display: none;
+      }
+      .account-mobile-icon{
+        font-size: 1.4em;
+      }
+
+      .dropdown-child{
+        text-align: left;
+        background-color: white;
+        border: 1px solid rgba(0,0,0,0.25);
+        z-index: 100;
+      }
+
+      .login-btn{
+        .login-text{
+          font-size: 1.1em;
+          display: none;
+        }
+        .login-icon{
+          font-size: 1.4em;
+        }
+      }
+    }
+
+  }/* header-main */
+}
+/* newsbar */
+@keyframes newsbar-anime{
+  0%{
+    color: $maincolor;
+  }
+  100%{
+    color: $white;
+  }
+}
+
+.newsbar{
+  text-align: center;
+  background-color: #333333;
+  font-size: 1.2em;
+  padding: 0.3em;
+  animation-name: newsbar-anime;
+  animation-duration: 1s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+
+/* sidebar */
+#background_sidebar{
+  display: none;
+  position: fixed;
+  background-color: rgba(0,0,0,0.1);
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+
+  #close_sidebar_btn{
+    position: absolute;
+    right: 0;
+  }
+}
+.sidebar{
+  display: none;
+  position: fixed;
+  background-color: $white;
+  top: 0;
+  width: 80%;
+  height: 100%;
+  z-index: 3;
+}
+
+/* main */
+.wrapper{
+  margin: 1em auto 0;
+}
+
+/* footer */
+.footer{
+  background-color: $maincolor;
+  margin-top: 1em;
+  padding: 0.5em 0;
+
+  .footer-main {
+    margin: 0 auto;
+    color: $white;
+    text-align: center;
+  }
+}
+
+/* dropdown */
+#dropdown{
+}
+.dropdown-child{
+  display: none;
+  li{
+    .dropdown-item{
+    }
+  }
+}
+
+/******************************************************************
+layout/_sidebar.html.erb
+ ******************************************************************/
+.sidebar-main{
+  margin: 10px;
+  width: 160px;
+
+  .sidebar-category{
+
+    .cat-menu{
+      margin: 0.4em 0;
+      border-bottom: 1px solid $gray;
+    }
+    .cat-menu:hover > .cat-detail{
+      display: block;
+    }
+    .cat-detail{
+      display: none;
+      position: absolute;
+      margin: -30px 0 0 140px;
+      z-index: 100;
+      background-color: $white;
+    }
+  }
+}
+
+
+/******************************************************************
+matarials/_all.erb
+ ******************************************************************/
+.card-grid{
+  padding: 0 0.4em;
+
+  .card{
+    border: 1px solid rgba(0,0,0,0.25);
+
+    .card-img{
+      overflow: hidden;
+      text-align: center;
+
+      .card-img-top{
+        width: auto;
+        max-width: 100%;
+      }
+    }
+
+    .card-user{
+      margin: 8px;
+
+      .card-icon{
+        width: 32px;
+      }
+      .user-name{
+        margin-left: 0.5em;
+        color: $darkgray;
+      }
+    }
+
+    .card-category{
+      font-size: 0.84em;
+      margin: -0.2em 0.5em;
+      color: $darkgray;
+    }
+
+    .card-title{
+      font-size: 1.4em;
+      margin: 0 8px;
+    }
+
+
+    .card-stock{
+      color: $darkgray;
+      margin: 0 8px 4px;
+    }
+
+  }
+}
+
+/* pagination */
+.pagination{
+  width: 100%;
+  margin-left: 15px;
+
+  > span{
+
+    *{
+      border: 1px solid $gray;
+      border-left: none;
+      padding: 0.5em 0.75em;
+      &:first-child{
+        border-left: 1px solid $gray;
+      }
+    }
+
+    a{
+      &:hover{
+        background-color: $linkcolor;
+        color: $white;
+      }
+    }
+  }
+
+
+
+}
+
+/******************************************************************
+matarials/index.erb
+ ******************************************************************/
+.add-btn{
+  position: fixed;
+  bottom: 1.4em;
+  right: 1.4em;
+}
+
+/******************************************************************
+show.erb
+ *******************************************************************/
+.detail-header{
+  margin-bottom: 1em;
+
+  .detail-icon{
+    width: 60px;
+  }
+  .user-name{
+    margin-left: 0.5em;
+  }
+}
+
+.detail-images{
+  max-width: 480px;
+  height: auto;
+  margin: 0 16px 26px;
+
+  .detail-main-image{
+  }
+
+  .detail-sub-images{
+  }
+
+  img{
+    max-width: 100%;
+    height: auto;
+  }
+
+  .slick-arrow:before{
+    color: $darkgray;
+  }
+}
+
+.detail-date{
+  color: $text-meta-gray;
+  font-size: 0.82em;
+}
+
+.detail-category{
+  font-size: 1.1em;
+}
+
+.detail-price{
+  color: $text-title-gray;
+  font-size: 1.2em;
+}
+
+.detail-text{
+  margin: 1em 0;
+}
+
+.detail-stock{
+  margin: 1em 0;
+  font-size: 1.1em;
+}
+
+.detail-footer{
+  font-size: 0.9em;
+  .contact{
+    margin-bottom: 1em;
+  }
+
+  .btn-group{
+    .btn{
+      margin: 0 0.2em;
+      width: 6.8em;
+    }
+  }
+}
+
+
+.edit-btn{
+  position: fixed;
+  right: 1.4em;
+  bottom: 1.4em;
+}
+
+.delete-btn{
+  position: fixed;
+  right: 1.4em;
+  bottom: 4.4em;
+}
+
+/******************************************************************
+matarials/new.erb
+******************************************************************/
+
+/******************************************************************
+matarials/edit.erb
+******************************************************************/
+
+/******************************************************************
+matarials/_form.erb
+******************************************************************/
+.material-form{
+  form > div{
+    margin: 12px 8px;
+  }
+
+  label{
+    vertical-align: top;
+    width: 90px;
+  }
+
+  .material-images{
+    .m-image{
+      display: inline-block;
+
+      label {
+        width: 60px;
+        height: 60px;
+        text-align: center;
+        i{
+          color: $maincolor;
+          width: 100%;
+          height: 100%;
+          padding-top: 21px;
+          border: 1.2px solid $maincolor;
+          span{
+            font-size: 0.9em;
+          }
+        }
+      }
+      input[type=file]{
+        display: none;
+      }
+
+      img{
+        width: 100%;
+      }
+    }
+  }
+
+  .material-title{
+    input{
+      width: 100%;
+    }
+  }
+
+
+  .material-price{
+    input{
+      width: 80px;
+    }
+    .label_unit{
+      width: 26px;
+    }
+
+  }
+
+  .material-stock{
+    label{
+      display: block;
+    }
+    .stock-radio{
+      display: inline-block;
+      label{
+        font-size: 0.9em;
+        width: 72px;
+        padding: 6px 0;
+      }
+    }
+  }
+
+  .material-description{
+
+    textarea{
+      width: 100%;
+      height: 10em;
+    }
+  }
+
+  .material-form-submit{
+  }
+}
+
+/******************************************************************
+users/show.erb
+ ******************************************************************/
+.user-show{
+  div{
+    margin-bottom: 1em;
+  }
+  .user-show-name{
+  }
+  .user-show-image{
+  }
+  .user-show-phone_no{
+  }
+}
+
+/******************************************************************
+users/registrations/edit.erb
+ ******************************************************************/
+.user_edit_icon{
+  width: 400px;
+}
+
+/******************************************************************
+users/session/new.erb
+ ******************************************************************/
+.user-session{
+  .login{
+    text-align: center;
+    margin-bottom: 70%
+  }
+}
+
+/******************************************************************
+loading images
+ ******************************************************************/
+#loading {
+  display: table;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: $white;
+  opacity: 0.8;
+
+  #loading_img {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 140px;
+    background: image-url("gif-load.gif") center center no-repeat;
+  }
+}
+
